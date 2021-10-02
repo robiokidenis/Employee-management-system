@@ -5,6 +5,14 @@ how to install
 
 ```composer install```
 
+copy .env.example to .env
+
+```cp .env.example .env```
+
+generate key
+
+```php artisan key:generate```
+
 migrate with seeding
 
 ```php artisan migrate --seed ```

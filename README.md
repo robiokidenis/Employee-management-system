@@ -27,7 +27,7 @@ create storage link
 - template using adminlte
 - email notification to company when new employee added ( dont forget to set MAIL_MAILER in .env using mailtrap or logs)
 
-## preview
+## previews
 
 Companies \
 ![image](https://user-images.githubusercontent.com/22372509/135702908-0217a1a4-7a3b-4f6c-b574-e063e0e0abb4.png)

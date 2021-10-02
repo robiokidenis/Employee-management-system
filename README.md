@@ -3,8 +3,14 @@
 
 how to install
 
-```bash composer install```
+```composer install```
 
 migrate with seeding
 
-```bash php artisan migrate --seed ```
+```php artisan migrate --seed ```
+
+#feature
+
+- using custom middleware to check role (basic and very simple)
+- template using adminlte
+- email notification to company when new employee added ( dont forget to set MAIL_MAILER in .env using mailtrap or logs)

@@ -9,7 +9,7 @@ migrate with seeding
 
 ```php artisan migrate --seed ```
 
-#feature
+## feature
 
 - using custom middleware to check role (basic and very simple)
 - template using adminlte

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,4 +22,10 @@ Auth::routes(['register' => false]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 // Route::get('/companies', [App\Http\Controllers\CompaniesController::class, 'index'])->name('companies');
-Route::resource('companies',App\Http\Controllers\CompaniesController::class);
+
+Route::middleware(['auth','checkAdmin'])->group(function () {
+    Route::resource('companies', App\Http\Controllers\CompaniesController::class);
+    Route::resource('employees', App\Http\Controllers\EmployeesController::class);
+    route::post('companies/{id}', [App\Http\Controllers\CompaniesController::class, 'update']);
+});
+Route::get('image/{filename}', [HomeController::class, 'displayImage'])->name('image.displayImage');

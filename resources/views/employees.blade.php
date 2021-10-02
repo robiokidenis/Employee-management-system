@@ -6,12 +6,12 @@
 
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Companies</h1>
+                <h1 class="m-0">Employees</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">Companies</li>
+                    <li class="breadcrumb-item active">Employees</li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -38,10 +38,10 @@
                             <thead>
                                 <tr>
                                     <th style="width: 10px">No.</th>
-                                    <th>Name</th>
+                                    <th>Full name</th>
                                     <th>Email</th>
-                                    <th>Website</th>
-                                    <th>Logo</th>
+                                    <th>Phone</th>
+                                    <th>Company</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -69,8 +69,13 @@
                 <form id="form-addnew">
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="name">Company Name</label>
-                            <input type="text" class="form-control" id="input_name" name="name" placeholder="Company name">
+                            <label for="name">First Name</label>
+                            <input type="text" class="form-control" id="input_first_name" name="first_name" placeholder="First Name">
+                            <span class="invalid-feedback" id="err-msg-first_name" role="alert"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Last Name</label>
+                            <input type="text" class="form-control" id="input_last_name" name="last_name" placeholder="last Name">
                             <span class="invalid-feedback" id="err-msg-name" role="alert"></span>
                         </div>
                         <div class="form-group">
@@ -79,15 +84,62 @@
                             <span class="invalid-feedback" id="err-msg-email" role="alert"></span>
                         </div>
                         <div class="form-group">
+                            <label for="website">Phone</label>
+                            <input type="text" class="form-control" id="input_phone" name="phone" placeholder="phone url">
+                            <span class="invalid-feedback" id="err-msg-phone" role="alert"></span>
+                        </div>
+                        <div class="form-group">
+                          <label for="">Company</label>
+                          <select class="form-control" name="company" id="input_company">
+                            @foreach ($companies as $company)
+                            <option value="{{$company->id}}">{{$company->name}}</option>
+                            @endforeach
+                          </select>
+                          <span class="invalid-feedback" id="err-msg-phone" role="alert"></span>
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" id="submit-addnew" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <div class="modal fade" id="modal-view">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Company Detail</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="form-addnew">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="name">Company Name</label>
+                            <input type="text" class="form-control" id="view_name" name="name" placeholder="Company name">
+                            <span class="invalid-feedback" id="err-msg-name" role="alert"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="_email">Email address</label>
+                            <input type="email" class="form-control" name="email" id="view_email" placeholder="Enter email">
+                            <span class="invalid-feedback" id="err-msg-email" role="alert"></span>
+                        </div>
+                        <div class="form-group">
                             <label for="website">Websitte</label>
-                            <input type="text" class="form-control" id="input_website" name="website" placeholder="website url">
+                            <input type="text" class="form-control" id="view_website" name="website" placeholder="website url">
                             <span class="invalid-feedback" id="err-msg-website" role="alert"></span>
                         </div>
 
                         <div class="form-group">
                             <label for="">Logo</label>
-                            <input type="file" class="form-control-file" name="image" id="input_image" placeholder="" aria-describedby="fileHelpId">
-                            <span class="invalid-feedback" id="err-msg-image" role="alert"></span>
+                            <img id="company-logo" src="" alt="company logo" class="img-thumbnail mt-2" width="100px" height="100px">
                         </div>
 
 
@@ -95,7 +147,7 @@
                     </div>
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" id="submit-addnew" class="btn btn-primary">Save changes</button>
+                        <button type="button"  data-dismiss="modal" class="btn btn-primary">Ok</button>
                     </div>
                 </form>
             </div>
@@ -141,7 +193,7 @@
         "lengthChange": false,
         "autoWidth": false,
         ajax: {
-            url: "{{route('companies.index')}}",
+            url: "{{route('employees.index')}}",
             data: {
                 from_date: "",
             }
@@ -152,18 +204,18 @@
                 "orderable": false,
                 name: 'no'
             }, {
-                data: 'name'
+                data: 'full_name'
             },
             {
                 data: 'email'
             }, {
-                data: 'website'
+                data: 'phone'
             }, {
-                data: 'logo'
+                data: 'company'
             }, {
                 data: 'action',
-                // "searchable": false,
-                // "orderable": false,
+                "searchable": false,
+                "orderable": false,
             }
 
 
@@ -190,22 +242,17 @@
 
         e.preventDefault();
         refreshData();
+        $('#modal-add > div > div > div > .modal-title').text('Add New Employee');
         $('input[name=_method]').val('POST');
-        $('.modal-title').text('INPUT COMPANIES');
         $('#submit-addnew').attr('name', 0);
         $('#modal-add').modal({
             backdrop: 'static',
             show: true
         });
     });
-    $(document).on('click', '.edit-companies', function(e) {
+    $(document).on('click', '.view-company', function(e) {
         // refreshData();
-
         var id = $(this).data('id');
-        $('input[name=_method]').val('PATCH');
-        $('.modal-title.modal-add').text('Edit mpp');
-        $('#submit-addnew').attr('name', 1);
-        $('#submit-addnew').val(id);
         $.ajax({
             url: "{{url('companies')}}/" + id + "/edit",
             dataType: "json",
@@ -213,9 +260,12 @@
             success: function(data) {
                 console.log(data);
                 $.each(data.data, function(key, value) {
-                    $('#input_' + key).val(value);
+                    $('#view_' + key).val(value).attr('disabled',true);
+                    if(key=='logo'){
+                        $('#company-logo').attr('src',"{{asset('/storage')}}/"+value);
+                    }
                 });
-                $('#modal-add').modal({
+                $('#modal-view').modal({
                     backdrop: 'static',
                     keyboard: false,
                     show: true
@@ -227,26 +277,56 @@
             }
         })
     });
+    $(document).on('click', '.edit-employees', function(e) {
+        // refreshData();
+        var id = $(this).data('id');
+        console.log(id);
+        // $('input[name=_method]').val('PATCH');
+        $('#modal-add > div > div > div > .modal-title').text('Edit Employee');
+        $('#submit-addnew').attr('name', 1);
+        $('#submit-addnew').val(id);
+        $.ajax({
+            url: "{{url('employees')}}/" + id + "/edit",
+            dataType: "json",
+            type: 'GET',
+            success: function(data) {
+                console.log(data);
+                $.each(data, function(key, value) {
+                    $('#input_' + key).val(value);
+                    console.log(key +' '+value);
+                });
+                $('#modal-add').modal({
+                    backdrop: 'static',
+                    keyboard: false,
+                    show: true
+                });
+            },
+            error: function(data) {
+                alert('Ooops, something wrong!, please try again');
+                console.log('Error:', data);
+            }
+        })
+    });
     $('#submit-addnew').on('click', function(e) {
         e.preventDefault();
-        var URL = "{{route('companies.store')}}",
+        var URL = "{{route('employees.store')}}",
             METHOD = "POST";
         if ($(this).attr('name') == 1) {
-            URL = "{{url('companies')}}/" + $(this).val();
-            METHOD = "POST"
+            URL = "{{url('employees')}}/" + $(this).val();
+            METHOD = "PUT"
         }
-        var form = $('#form-addnew')[0];
-        var data = new FormData(form);
-        console.log(data);
+        // var form = $('#form-addnew')[0];
+        // var data = new FormData(form);
+        // console.log(data);
         $.ajax({
-            data: data,
-            enctype: 'multipart/form-data',
-            processData: false, // Important!
-            contentType: false,
-            cache: false,
+            // data: data,
+            // enctype: 'multipart/form-data',
+            // processData: false, // Important!
+            // contentType: false,
+            // cache: false,
             type: METHOD,
             url: URL,
-            // data: form, // $('#form-addnew').serialize(), //+ "&department=" + department,
+            data: $('#form-addnew').serialize(), //+ "&department=" + department,
             beforeSend: function() {
                 $(this).text('Loading...');
                 $(this).attr("disabled", '');
@@ -288,7 +368,7 @@
         // refreshData();
     });
 
-    $(document).on('click', '.delete-companies', function(e) {
+    $(document).on('click', '.delete-employees', function(e) {
         // refreshData();
 
         var id = $(this).data('id');
@@ -305,7 +385,7 @@
                 if (willDelete) {
                     // if (confirm("Are You sure want to delete !?")) {
                     $.ajax({
-                        url: "{{url('companies')}}/" + id,
+                        url: "{{url('employees')}}/" + id,
                         type: 'DELETE',
                         data: {
                             'id': id,

@@ -19,7 +19,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Theme style -->
     <!-- <link rel="stylesheet" href="dist/css/adminlte.min.css"> -->
     <link rel="stylesheet" href="{{asset('dist/css/adminlte.min.css')}}">
-
+    @yield('customStyles')
 </head>
 @yield('body')
 

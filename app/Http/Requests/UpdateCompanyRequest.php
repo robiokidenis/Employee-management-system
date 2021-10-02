@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CompanyRequest extends FormRequest
+class UpdateCompanyRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -16,18 +16,12 @@ class CompanyRequest extends FormRequest
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
     public function rules()
     {
         return [
             'name' => 'required|string|',
-            'email' => 'required|email|unique:companies,email',
+            'email' => 'required|email',
             'website' => 'nullable|url',
-            'image' => 'nullable|image|mimes:jpg,png,jpeg,gif|max:2048',
         ];
     }
     public function messages()

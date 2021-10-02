@@ -30,6 +30,7 @@ create storage link
 ## preview
 
 Companies \
-![image](https://user-images.githubusercontent.com/22372509/135702721-226da3d5-58a9-45ce-b3d1-09b95a6263ee.png)
+![image](https://user-images.githubusercontent.com/22372509/135702818-29572ba8-508b-4521-b9ab-e483dd8a90ae.png)
+
 Employees \
 ![screencapture-127-0-0-1-8000-employees-2021-10-02-10_47_55](https://user-images.githubusercontent.com/22372509/135702740-fa7db26f-d4e7-4dec-96ec-15d43cc1c892.png)

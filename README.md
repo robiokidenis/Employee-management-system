@@ -17,6 +17,10 @@ migrate with seeding
 
 ```php artisan migrate --seed ```
 
+create storage link
+
+```php artisan storage:link```
+
 ##  feature
 
 - using custom middleware to check role (basic and very simple)

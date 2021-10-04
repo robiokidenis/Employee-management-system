@@ -238,7 +238,6 @@
 
 
     $('#btnAdd').on('click', function(e) {
-
         e.preventDefault();
         refreshData();
         $('#modal-add > div > div > div > .modal-title').text('Add New Employee');
@@ -250,7 +249,7 @@
         });
     });
     $(document).on('click', '.view-company', function(e) {
-        // refreshData();
+        e.preventDefault();
         var id = $(this).data('id');
         $.ajax({
             url: "{{url('companies')}}/" + id + "/edit",

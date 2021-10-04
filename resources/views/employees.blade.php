@@ -76,7 +76,7 @@
                         <div class="form-group">
                             <label for="name">Last Name</label>
                             <input type="text" class="form-control" id="input_last_name" name="last_name" placeholder="last Name">
-                            <span class="invalid-feedback" id="err-msg-name" role="alert"></span>
+                            <span class="invalid-feedback" id="err-msg-last_name" role="alert"></span>
                         </div>
                         <div class="form-group">
                             <label for="_email">Email address</label>
@@ -231,12 +231,11 @@
         $("#form-addnew").trigger("reset");
         $('.modal').modal('hide');
         $('.form-group>input').removeClass('is-invalid');
+        $('#submit-addnew').text('Save');
+        $('#submit-addnew').removeAttr("disabled");
     }
 
 
-    function loadData() {
-
-    }
 
     $('#btnAdd').on('click', function(e) {
 
@@ -315,35 +314,27 @@
             URL = "{{url('employees')}}/" + $(this).val();
             METHOD = "PUT"
         }
-        // var form = $('#form-addnew')[0];
-        // var data = new FormData(form);
-        // console.log(data);
-        $.ajax({
-            // data: data,
-            // enctype: 'multipart/form-data',
-            // processData: false, // Important!
-            // contentType: false,
-            // cache: false,
+       $.ajax({
             type: METHOD,
             url: URL,
             data: $('#form-addnew').serialize(), //+ "&department=" + department,
             beforeSend: function() {
-                $(this).text('Loading...');
-                $(this).attr("disabled", '');
+                $('#submit-addnew').text('Loading...');
+                $('#submit-addnew').attr("disabled",true);
             },
             success: function(response) {
                 console.log(response);
             },
             complete: function(response) {
                 console.log(response);
-                $(this).text('Save');
-                $(this).removeAttr("disabled");
+                $('#submit-addnew').text('Save');
+                $('#submit-addnew').removeAttr("disabled");
                 if (response.status == '201') {
-                    swal("Successfull", "Successfull input companies", "success");
+                    swal("Successfull", "Successfull input employee.", "success");
                     refreshData();
                 } else if ((response.status == '200')) {
                     console.log(response.status);
-                    swal("Successfull", "Successfull update companies", "success");
+                    swal("Successfull", "Successfull update employee.", "success");
                     refreshData();
                 }
             },
@@ -361,11 +352,12 @@
                         'error'
                     )
                     console.log('Error:', e);
+             refreshData();
+
                 }
             }
         });
 
-        // refreshData();
     });
 
     $(document).on('click', '.delete-employees', function(e) {
@@ -376,7 +368,7 @@
 
         swal({
                 title: "Are you sure?",
-                text: "want to delete this company data!",
+                text: "want to delete this employee data!",
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,

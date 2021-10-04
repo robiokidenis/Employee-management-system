@@ -24,7 +24,7 @@ class EmployeeRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name' => 'required|string',
+            'first_name' => 'string',
             'last_name' => 'required|string',
             'email' => 'nullable|email|unique:employees,email,'.$this->id,
             'phone' => 'nullable|string',

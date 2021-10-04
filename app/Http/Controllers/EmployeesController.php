@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateEmployeeRequest;
 use App\Models\Companies;
 use App\Models\Employees;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\View\Component;
 
 class EmployeesController extends Controller
@@ -73,7 +74,11 @@ class EmployeesController extends Controller
                 'phone' => $request->phone,
                 'companies_id' => $request->company,
             ]);
-            $employee->company->notify(new \App\Notifications\notifNewEmployee($employee->company));
+            try {
+                $employee->company->notify(new \App\Notifications\notifNewEmployee($employee->company));
+            } catch (\Exception $e) {
+                Log::warning("cannot send email notification, mailer driver not set.");
+            }
             return $employee;
             return response()->json(['succes' => 'stored'], 201);
         }

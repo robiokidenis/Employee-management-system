@@ -16,6 +16,9 @@
             <a href="{{url('/employees')}}" class="nav-link">Employees</a>
         </li>
         @endif
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="{{url('/quotes')}}" class="nav-link">Daily Quotes</a>
+        </li>
         
     </ul>
 
@@ -213,6 +216,15 @@
                   <i class="nav-icon fa fa-users"></i>
                   <p>
                     Employees
+                    {{-- <span class="badge badge-info right">2</span> --}}
+                  </p>
+                </a>
+              </li>
+            <li class="nav-item">
+                <a href="{{url('/quotes')}}" class="nav-link {{ (Route::currentRouteName()== 'quotes') ? 'active' : '' }}">
+                  <i class="nav-icon fa fa-edit"></i>
+                  <p>
+                    Daily Quotes
                     {{-- <span class="badge badge-info right">2</span> --}}
                   </p>
                 </a>

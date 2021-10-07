@@ -29,3 +29,4 @@ Route::middleware(['auth','checkAdmin'])->group(function () {
     route::post('companies/{id}', [App\Http\Controllers\CompaniesController::class, 'update']);
 });
 Route::get('image/{filename}', [HomeController::class, 'displayImage'])->name('image.displayImage');
+Route::get('quotes', [HomeController::class, 'quotes'])->name('quotes');

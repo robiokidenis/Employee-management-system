@@ -33,3 +33,9 @@ Companies \
 ![image](https://user-images.githubusercontent.com/22372509/135702721-226da3d5-58a9-45ce-b3d1-09b95a6263ee.png)
 Employees \
 ![screencapture-127-0-0-1-8000-employees-2021-10-02-10_47_55](https://user-images.githubusercontent.com/22372509/135702740-fa7db26f-d4e7-4dec-96ec-15d43cc1c892.png)
+
+New features Employee table filter and Daily quotes
+
+![image](https://user-images.githubusercontent.com/22372509/136420314-eb06dce3-90ef-47d5-9cc7-aa40572c2010.png)
+
+

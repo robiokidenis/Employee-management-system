@@ -287,8 +287,8 @@
 
 
         $("#btn-filter").on("click", function() {
-            filter_from = filter_from;
-            filter_to = filter_from;
+            // filter_from = filter_from;
+            // filter_to = filter_to;
             filter_email = $('#filter_email').val();
             filter_first_name = $('#filter_first_name').val();
             filter_last_name = $('#filter_last_name').val();

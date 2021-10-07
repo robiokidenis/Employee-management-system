@@ -37,19 +37,20 @@
                             <h5>Filter Page</h5>
 
                             <div class="row">
-
+                               
                                 <div class="col-4">
                                     <div class="form-group">
-                                        <label for="filter_from">From</label>
-                                        <input type="text" class="form-control" id="filter_from" name="from"
-                                            placeholder="From date">
-                                        <span class="invalid-feedback" id="err-msg-from" role="alert"></span>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="input_to">To</label>
-                                        <input type="text" class="form-control" id="filter_to" name="to"
-                                            placeholder="To date">
-                                        <span class="invalid-feedback" id="err-msg-to" role="alert"></span>
+                                        <label>Date range:</label>
+    
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="far fa-calendar-alt"></i>
+                                                </span>
+                                            </div>
+                                            <input type="text" class="form-control float-right" id="reservation">
+                                        </div>
+                                        <!-- /.input group -->
                                     </div>
                                     <div class="form-group">
                                         <label for="filter_email">Email address</label>
@@ -252,10 +253,33 @@
             filter_last_name,
             filter_company;
 
-        //Date picker
-        $('#reservationdate').datetimepicker({
-            format: 'L'
-        });
+
+        //Date range as a button
+        $('#reservation').daterangepicker({
+                // ranges: {
+                //     'Today': [moment(), moment()],
+                //     'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                //     'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                //     'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                //     'This Month': [moment().startOf('month'), moment().endOf('month')],
+                //     'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf(
+                //         'month')]
+                // },
+                startDate: moment().subtract(29, 'days'),
+                endDate: moment()
+            },
+            function(start, end) {
+                filter_from = start.format('YYYY-MM-DD');
+                filter_to = end.format('YYYY-MM-DD');
+                console.log(filter_from, filter_to);
+                $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
+            }
+        )
+
+        //Timepicker
+        $('#timepicker').datetimepicker({
+            format: 'LT'
+        })
 
         // $('#filter_from').on('change', function() {
         //     console.log("masuk gan");
@@ -263,8 +287,8 @@
 
 
         $("#btn-filter").on("click", function() {
-            filter_from = $('#filter_from').val();
-            filter_to = $('#filter_to').val();
+            filter_from = filter_from;
+            filter_to = filter_from;
             filter_email = $('#filter_email').val();
             filter_first_name = $('#filter_first_name').val();
             filter_last_name = $('#filter_last_name').val();
@@ -274,7 +298,8 @@
             load_dtable(true);
         });
         load_dtable();
-        function load_dtable(reinitial = false,filter_comp=null) {
+
+        function load_dtable(reinitial = false, filter_comp = null) {
             if (reinitial) {
                 $('#tableCompanies').DataTable().destroy();
             }
@@ -464,23 +489,7 @@
 
             // refreshData();
         });
-        $('#daterange-btn').daterangepicker({
-                ranges: {
-                    'Today': [moment(), moment()],
-                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                    'This Month': [moment().startOf('month'), moment().endOf('month')],
-                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf(
-                        'month')]
-                },
-                startDate: moment().subtract(29, 'days'),
-                endDate: moment()
-            },
-            function(start, end) {
-                $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
-            }
-        )
+
         $(document).on('click', '.delete-employees', function(e) {
             // refreshData();
 

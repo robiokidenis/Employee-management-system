@@ -27,7 +27,25 @@ class EmployeesController extends Controller
 
         //    return Employees::first()->company->name;
         if (request()->ajax()) {
-            $employee = Employees::get();
+            // dd(request());
+            $employee = Employees::
+            when(request()->filter_email!=null,function($q){
+                return $q->where('email','like',"%".request('filter_email')."%");
+            })
+            ->when(request()->filter_first_name!=null,function($q){
+                return $q->where('first_name','like',"%".request('filter_first_name')."%");
+            })
+            ->when(request()->filter_last_name!=null,function($q){
+                return $q->where('last_name','like',"%".request('filter_last_name')."%");
+            })
+            ->when(request()->filter_company!=null,function($q){
+                return $q->where('companies_id','=',request('filter_company'));
+            })
+            ->when(request('filter_from')!=null || request('filter_to'),function($q){
+                return $q->whereBetween('created_at',request('filter_from'),request('filter_to',now()));
+            })
+            
+            ->get();
             return DataTables()->of($employee)
                 ->addIndexColumn()
                 ->addColumn('full_name', function ($data) {

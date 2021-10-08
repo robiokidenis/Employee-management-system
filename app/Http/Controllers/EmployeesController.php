@@ -29,8 +29,8 @@ class EmployeesController extends Controller
         if (request()->ajax()) {
             // dd(request());
             $employee = Employees::when(request()->filter_email != null, function ($q) {
-                    return $q->where('email', 'like', "%" . request('filter_email') . "%");
-                })
+                return $q->where('email', 'like', "%" . request('filter_email') . "%");
+            })
                 ->when(request()->filter_first_name != null, function ($q) {
                     return $q->where('first_name', 'like', "%" . request('filter_first_name') . "%");
                 })
@@ -41,10 +41,11 @@ class EmployeesController extends Controller
                     return $q->where('companies_id', '=', request('filter_company'));
                 })
                 ->when(request('filter_from') != null || request('filter_to'), function ($q) {
-
-                        return $q->whereBetween('created_at', [request('filter_from', now()),request('filter_to', now())]);
+                    $start = date("Y-m-d",strtotime(request()->input('filter_from')));
+                    $end = date("Y-m-d",strtotime(request()->input('filter_to')."+1 day"));
+                    return $q->whereBetween('created_at',[$start,$end]);
+                    // return $q->whereBetween('created_at', [request('filter_from', now()), request('filter_to', now())]);
                 })
-
                 ->get();
             return DataTables()->of($employee)
                 ->addIndexColumn()

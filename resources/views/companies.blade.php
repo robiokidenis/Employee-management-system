@@ -248,16 +248,16 @@
             url: URL,
             // data: form, // $('#form-addnew').serialize(), //+ "&department=" + department,
             beforeSend: function() {
-                $(this).text('Loading...');
-                $(this).attr("disabled", '');
+                $('#submit-addnew').text('Loading...');
+                $('#submit-addnew').attr("disabled", '');
             },
             success: function(response) {
                 console.log(response);
             },
             complete: function(response) {
                 console.log(response);
-                $(this).text('Save');
-                $(this).removeAttr("disabled");
+                $('#submit-addnew').text('Save');
+                $('#submit-addnew').removeAttr("disabled");
                 if (response.status == '201') {
                     swal("Successfull", "Successfull input companies", "success");
                     refreshData();

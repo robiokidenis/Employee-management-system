@@ -1,5 +1,5 @@
 
-## Project for test GR Tech
+## Project for test Employee Management System
 
 how to install
 

@@ -27,7 +27,8 @@ class CompanyRequest extends FormRequest
             'name' => 'required|string|',
             'email' => 'required|email|unique:companies,email',
             'website' => 'nullable|url',
-            'image' => 'nullable|image|mimes:jpg,png,jpeg,gif|max:2048',
+            'image' => 'required|image|mimetypes:image/jpeg,image/png|max:2048',
+            //ither change it to 'image|mimes:jpeg,png' or 'image|mimetypes:image/jpeg,image/png'
         ];
     }
     public function messages()
